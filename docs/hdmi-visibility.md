@@ -17,7 +17,7 @@ or remove it to restore the default list. A bundled configuration can also set t
 This is **firmware-reported input activity**, not a physical cable detector:
 
 - Bare HDMI ports reported as connected remain visible.
-- Bare HDMI ports reported as connected/standby or disconnected are hidden when enabled.
+- Bare HDMI ports reported as standby or disconnected are hidden when enabled.
   A plugged-in source that is off can therefore disappear too. Disable the option
   if you need to select such a port before turning its source on.
 - Known HDMI-CEC devices remain selectable, even in standby, because selecting their
@@ -60,3 +60,18 @@ a popup losing every last row. CEC behavior is retained from the existing code.
 Do not interpret these results as universal physical cable detection.
 
 ![HDMI 2 appears while the existing AV selection is preserved](images/hdmi-visibility-connected.png)
+
+## Community check: Philips 65PUS8102/12
+
+[priku reported a separate check](https://github.com/Gathin23/cleanyourtv/pull/535#issuecomment-6315690131)
+on TPM171E / MediaTek, Android TV 8.0 / API 26, after integrating this branch with
+then-current upstream main. An Apple TV on HDMI 1 was reported connected over CEC;
+the three unused HDMI ports were reported as standby. With the option enabled,
+those three ports disappeared while the Apple TV and component input remained.
+The reporter also ran the JVM tests, lint and release build. They did not test
+plugging or unplugging a source while the menu was open. These are the reporter's
+results, not an additional local device run or proof for every Philips model.
+
+This feature remains on this fork after the upstream maintainer
+[declined its size for the shared launcher](https://github.com/Gathin23/cleanyourtv/pull/535#issuecomment-6329422421).
+The launcher adds no network permission or telemetry.
